@@ -94,24 +94,33 @@ nine.addEventListener('click', function(){
     }
 })
 
+
 add.addEventListener('click', function(){
-    if(disp.textContent.length || 1 && disp.textContent != '0'){
-        disp.textContent += '+'
+    if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
+        if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
+            disp.textContent += '+'
+        }
     }
 })
 subtract.addEventListener('click', function(){
-    if(disp.textContent.length || 1 && disp.textContent != '0'){
-        disp.textContent += '-'
+    if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
+        if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
+            disp.textContent += '-'
+        }
     }
 })
 multiply.addEventListener('click', function(){
-    if(disp.textContent.length || 1 && disp.textContent != '0'){
-        disp.textContent += '*'
+    if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
+        if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
+            disp.textContent += '*'
+        }
     }
 })
 divide.addEventListener('click', function(){
-    if(disp.textContent.length || 1 && disp.textContent != '0'){
-        disp.textContent += '/'
+    if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
+        if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
+            disp.textContent += '/'
+        }
     }
 })
 equals.addEventListener('click', function(){
@@ -119,71 +128,44 @@ equals.addEventListener('click', function(){
     if(arr[arr.length-1] == "+" || arr[arr.length-1] == "-" || arr[arr.length-1] == "*" || arr[arr.length-1] == "/"){
         arr.pop()
     }
+
     let numOfDivide = arr.reduce((total,x) => total+(x=="/"), 0)
     let numOfMultiply = arr.reduce((total,x) => total+(x=="*"), 0)
     let numOfAdd = arr.reduce((total,x) => total+(x=="+"), 0) 
     let numOfSubtract = arr.reduce((total,x) => total+(x=="-"), 0)
+    total = numOfDivide+numOfMultiply+numOfAdd+numOfSubtract
 
-    if(numOfDivide>0){
-
-    }else if(numOfMultiply){
-
-    }else if(numOfAdd){
-
-    }else if(numOfSubtract){
-
-    }else{
-
-    }
-
-    while(numOfDivide>0){
-        const divLoc = arr.indexOf('/')
-        if(divLoc != -1){
-            temp = String(parseFloat(arr[divLoc-1]) / parseFloat(arr[divLoc+1]))
-            beg = arr.splice(0,divLoc-1)
-            beg.push(temp)
-            end = arr.splice(divLoc+2)
-            arr = beg.concat(end)
+    while(total>0){
+        if(numOfDivide>0){
+            arr = calculate(arr,'/')
             numOfDivide-=1
-        }
-    }
-    while(numOfMultiply>0){
-        const divLoc = arr.indexOf('*')
-        if(divLoc != -1){
-            temp = String(parseFloat(arr[divLoc-1]) * parseFloat(arr[divLoc+1]))
-            beg = arr.splice(0,divLoc-1)
-            beg.push(temp)
-            end = arr.splice(divLoc+2)
-            arr = beg.concat(end)
+            total-=1
+
+        }else if(numOfMultiply){
+            arr = calculate(arr,'*')
             numOfMultiply-=1
-        }
-    }
-    while(numOfAdd>0){
-        const divLoc = arr.indexOf('+')
-        if(divLoc != -1){
-            temp = String(parseFloat(arr[divLoc-1]) + parseFloat(arr[divLoc+1]))
-            beg = arr.splice(0,divLoc-1)
-            beg.push(temp)
-            end = arr.splice(divLoc+2)
-            arr = beg.concat(end)
+            total-=1
+
+        }else if(numOfAdd){
+            arr = calculate(arr,'+')
             numOfAdd-=1
-        }
-    }
-    while(numOfSubtract>0){
-        const divLoc = arr.indexOf('-')
-        if(divLoc != -1){
-            temp = String(parseFloat(arr[divLoc-1]) - parseFloat(arr[divLoc+1]))
-            beg = arr.splice(0,divLoc-1)
-            beg.push(temp)
-            end = arr.splice(divLoc+2)
-            arr = beg.concat(end)
+            total-=1
+
+        }else if(numOfSubtract){
+            arr = calculate(arr,'-')
             numOfSubtract-=1
+            total-=1
+
         }
     }
-    disp.textContent = parseFloat(arr[0]).toFixed(10)
-
-
+    if(arr[0].length >10){
+        disp.textContent = parseFloat(arr[0]).toFixed(10)
+    }else{
+        disp.textContent = parseFloat(arr[0])
+    }
 })
+
+
 
 function calculate(arr, type){
     const operationLoc = arr.indexOf(type)
@@ -205,6 +187,5 @@ function calculate(arr, type){
     beg.push(temp)
     end = arr.splice(operationLoc+2)
     arr = beg.concat(end)
-    numOfDivide-=1
     return arr
 }
