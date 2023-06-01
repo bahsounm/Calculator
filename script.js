@@ -116,14 +116,95 @@ divide.addEventListener('click', function(){
 })
 equals.addEventListener('click', function(){
     arr = disp.textContent.split("")
-    console.log(arr[arr.length-1])
     if(arr[arr.length-1] == "+" || arr[arr.length-1] == "-" || arr[arr.length-1] == "*" || arr[arr.length-1] == "/"){
-        arr = arr.substring(0,arr.length-1)
+        arr.pop()
+    }
+    let numOfDivide = arr.reduce((total,x) => total+(x=="/"), 0)
+    let numOfMultiply = arr.reduce((total,x) => total+(x=="*"), 0)
+    let numOfAdd = arr.reduce((total,x) => total+(x=="+"), 0) 
+    let numOfSubtract = arr.reduce((total,x) => total+(x=="-"), 0)
+
+    if(numOfDivide>0){
+
+    }else if(numOfMultiply){
+
+    }else if(numOfAdd){
+
+    }else if(numOfSubtract){
+
+    }else{
+
     }
 
-    while(arr.length != 1){
-
-        
+    while(numOfDivide>0){
+        const divLoc = arr.indexOf('/')
+        if(divLoc != -1){
+            temp = String(parseFloat(arr[divLoc-1]) / parseFloat(arr[divLoc+1]))
+            beg = arr.splice(0,divLoc-1)
+            beg.push(temp)
+            end = arr.splice(divLoc+2)
+            arr = beg.concat(end)
+            numOfDivide-=1
+        }
     }
+    while(numOfMultiply>0){
+        const divLoc = arr.indexOf('*')
+        if(divLoc != -1){
+            temp = String(parseFloat(arr[divLoc-1]) * parseFloat(arr[divLoc+1]))
+            beg = arr.splice(0,divLoc-1)
+            beg.push(temp)
+            end = arr.splice(divLoc+2)
+            arr = beg.concat(end)
+            numOfMultiply-=1
+        }
+    }
+    while(numOfAdd>0){
+        const divLoc = arr.indexOf('+')
+        if(divLoc != -1){
+            temp = String(parseFloat(arr[divLoc-1]) + parseFloat(arr[divLoc+1]))
+            beg = arr.splice(0,divLoc-1)
+            beg.push(temp)
+            end = arr.splice(divLoc+2)
+            arr = beg.concat(end)
+            numOfAdd-=1
+        }
+    }
+    while(numOfSubtract>0){
+        const divLoc = arr.indexOf('-')
+        if(divLoc != -1){
+            temp = String(parseFloat(arr[divLoc-1]) - parseFloat(arr[divLoc+1]))
+            beg = arr.splice(0,divLoc-1)
+            beg.push(temp)
+            end = arr.splice(divLoc+2)
+            arr = beg.concat(end)
+            numOfSubtract-=1
+        }
+    }
+    disp.textContent = parseFloat(arr[0]).toFixed(10)
+
 
 })
+
+function calculate(arr, type){
+    const operationLoc = arr.indexOf(type)
+    switch(type){
+        case '/':
+            temp = String(parseFloat(arr[operationLoc-1]) / parseFloat(arr[operationLoc+1]))
+            break
+        case '*':
+            temp = String(parseFloat(arr[operationLoc-1]) * parseFloat(arr[operationLoc+1]))
+            break
+        case '+':
+            temp = String(parseFloat(arr[operationLoc-1]) + parseFloat(arr[operationLoc+1]))
+            break
+        case '-':
+            temp = String(parseFloat(arr[operationLoc-1]) - parseFloat(arr[operationLoc+1]))
+            break
+    }
+    beg = arr.splice(0,operationLoc-1)
+    beg.push(temp)
+    end = arr.splice(operationLoc+2)
+    arr = beg.concat(end)
+    numOfDivide-=1
+    return arr
+}
