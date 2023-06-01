@@ -1,0 +1,112 @@
+body{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    background-color: grey;
+}
+
+.calc-body{
+    background-color: black;
+    padding: 30px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: fit-content;
+}
+
+.display{
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    justify-content: right;
+    font-size: 40px;
+    color: white;
+}
+
+.first{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    gap: 20px;
+
+}
+
+.second{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    gap: 20px;
+    color: white;
+
+}
+
+.third{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    gap: 20px;
+    color: white;
+
+}
+
+.fourth{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    gap: 20px;
+    color: white;
+}
+
+.fifth{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    gap: 20px;
+    color: white;
+}
+
+#but{
+    border-style: solid;
+    border-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#but:hover{
+    cursor: pointer;
+    background-color: rgba(255, 166, 0, 0.39);
+}
+.equals{
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    padding: 5px;
+    width: 118px;
+    text-align: center;
+}
+
+.equals:hover{
+    cursor: pointer;
+    background-color: rgba(255, 166, 0, 0.39);;
+}
+
+.delete{
+    font-size:23px;
+}
+.clear{
+    font-size:26px;
+}
+
+.orange{
+    background-color: orange;
+    color: black;
+}
