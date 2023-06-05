@@ -1,27 +1,15 @@
-const clear = document.querySelector('.clear')
-const del = document.querySelector('.delete')
-const percent = document.querySelector('.percent')
-const add = document.querySelector('.add')
-const subtract = document.querySelector('.subtract')
-const multiply = document.querySelector('.multiply')
-const divide = document.querySelector('.divide')
-const decimal = document.querySelector('.decimal')
-const equals = document.querySelector('.equals')
-const zero = document.querySelector('.zero')
-const one = document.querySelector('.one')
-const two = document.querySelector('.two')
-const three = document.querySelector('.three')
-const four = document.querySelector('.four')
-const five = document.querySelector('.five')
-const six = document.querySelector('.six')
-const seven = document.querySelector('.seven')
-const eight = document.querySelector('.eight')
-const nine = document.querySelector('.nine')
 const disp = document.querySelector('.display')
 
 window.addEventListener('click',function(e){
     element = e.srcElement.textContent
-    console.log(element)
+    
+    if(element == 'x'){
+        element = '*'
+    }
+
+    if(element== '÷'){
+        element = '/'
+    }
 
     if(element == '1' || element == '2' ||element == '3' ||element == '4' ||element == '5' ||element == '6' ||element == '7' ||element == '8' ||element == '9' ||element == '0'){
         addNumToDisplay(element)
@@ -36,7 +24,8 @@ window.addEventListener('click',function(e){
         }
     }else if(element == '+' || element == '-' ||element == '*' ||element == '/' || element == '.'){
         addOperatorToDisplay(element)
-
+    }else if(element == '='){
+        doMath()
     }
 })
 
@@ -60,7 +49,7 @@ function addOperatorToDisplay(operator){
     }
 }
 
-equals.addEventListener('click', function(){
+function doMath(){
     arr = disp.textContent.split(' ')
     if(arr[arr.length-1] == "+" || arr[arr.length-1] == "-" || arr[arr.length-1] == "*" || arr[arr.length-1] == "/"){
         arr.pop()
@@ -95,12 +84,13 @@ equals.addEventListener('click', function(){
 
         }
     }
-    if(arr[0].length >10){
-        disp.textContent = parseFloat(arr[0]).toFixed(10)
+    if(arr[0].length >5){
+        temps = parseFloat(arr[0]).toFixed(10)
+        disp.textContent = temps.substring(0,temps.indexOf('0'))
     }else{
         disp.textContent = parseFloat(arr[0])
     }
-})
+}
 
 function calculate(arr, type){
     const operationLoc = arr.indexOf(type)
