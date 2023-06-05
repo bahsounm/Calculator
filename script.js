@@ -7,6 +7,7 @@ const multiply = document.querySelector('.multiply')
 const divide = document.querySelector('.divide')
 const decimal = document.querySelector('.decimal')
 const equals = document.querySelector('.equals')
+const zero = document.querySelector('.zero')
 const one = document.querySelector('.one')
 const two = document.querySelector('.two')
 const three = document.querySelector('.three')
@@ -18,113 +19,49 @@ const eight = document.querySelector('.eight')
 const nine = document.querySelector('.nine')
 const disp = document.querySelector('.display')
 
+window.addEventListener('click',function(e){
+    element = e.srcElement.textContent
+    console.log(element)
 
-clear.addEventListener('click', function(){
-    disp.textContent ='0'
-})
-del.addEventListener('click', function(){
-    len = disp.textContent.length
-    if(len <= 1){
-        disp.textContent = 0
-    }else{
-        disp.textContent = disp.textContent.substring(0,len-1)
-    }
-})
-one.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '1'
-    }else{
-        disp.textContent+= '1'
-    }
-})
-two.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '2'
-    }else{
-        disp.textContent+= '2'
-    }
-})
-three.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '3'
-    }else{
-        disp.textContent+= '3'
-    }
-})
-four.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '4'
-    }else{
-        disp.textContent+= '4'
-    }
-})
-five.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '5'
-    }else{
-        disp.textContent+= '5'
-    }
-})
-six.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '6'
-    }else{
-        disp.textContent+= '6'
-    }
-})
-seven.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '7'
-    }else{
-        disp.textContent+= '7'
-    }
-})
-eight.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '8'
-    }else{
-        disp.textContent+= '8'
-    }
-})
-nine.addEventListener('click', function(){
-    if(disp.textContent.length == 1 && disp.textContent == '0'){
-        disp.textContent = '9'
-    }else{
-        disp.textContent+= '9'
+    if(element == '1' || element == '2' ||element == '3' ||element == '4' ||element == '5' ||element == '6' ||element == '7' ||element == '8' ||element == '9' ||element == '0'){
+        addNumToDisplay(element)
+    }else if(element == "AC"){
+        disp.textContent ='0'
+    }else if(element == 'DEL'){
+        len = disp.textContent.length
+        if(len <= 1){
+            disp.textContent = 0
+        }else{
+            disp.textContent = disp.textContent.substring(0,len-1)
+        }
+    }else if(element == '+' || element == '-' ||element == '*' ||element == '/' || element == '.'){
+        addOperatorToDisplay(element)
+
     }
 })
 
+function addNumToDisplay(str){
+    if(disp.textContent.length == 1 && disp.textContent == '0'){
+        disp.textContent = str
+    }else{
+        disp.textContent+= str
+    }
+}
 
-add.addEventListener('click', function(){
+function addOperatorToDisplay(operator){
     if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
         if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
-            disp.textContent += '+'
+            if(element == '.'){
+                disp.textContent += '.'
+            }else{
+                disp.textContent += (" " + element + " ")
+            }
         }
     }
-})
-subtract.addEventListener('click', function(){
-    if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
-        if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
-            disp.textContent += '-'
-        }
-    }
-})
-multiply.addEventListener('click', function(){
-    if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
-        if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
-            disp.textContent += '*'
-        }
-    }
-})
-divide.addEventListener('click', function(){
-    if((disp.textContent.length == 1 && disp.textContent != '0') || disp.textContent.length > 1){
-        if(disp.textContent[disp.textContent.length-1] != "+" && disp.textContent[disp.textContent.length-1] != "-" && disp.textContent[disp.textContent.length-1] != "*" && disp.textContent[disp.textContent.length-1] != "/"){
-            disp.textContent += '/'
-        }
-    }
-})
+}
+
 equals.addEventListener('click', function(){
-    arr = disp.textContent.split("")
+    arr = disp.textContent.split(' ')
     if(arr[arr.length-1] == "+" || arr[arr.length-1] == "-" || arr[arr.length-1] == "*" || arr[arr.length-1] == "/"){
         arr.pop()
     }
@@ -164,8 +101,6 @@ equals.addEventListener('click', function(){
         disp.textContent = parseFloat(arr[0])
     }
 })
-
-
 
 function calculate(arr, type){
     const operationLoc = arr.indexOf(type)

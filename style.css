@@ -27,6 +27,8 @@ body{
     justify-content: right;
     font-size: 40px;
     color: white;
+    width: 270px;
+    overflow: hidden;
 }
 
 .first{
